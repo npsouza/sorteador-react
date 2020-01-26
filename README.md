@@ -39,3 +39,5 @@
 - clique em **Sortear**
 
 ## Exemplo
+
+- acesse [sorteadordenomes.netlify.com](https://sorteadordenomes.netlify.com)

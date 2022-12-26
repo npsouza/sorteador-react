@@ -1,6 +1,5 @@
 import React from "react";
-
-import "./index.css";
+import classNames from "classnames";
 
 export default function App() {
   const initialDelay = 50;
@@ -55,53 +54,67 @@ export default function App() {
     setCount(0);
   };
 
-  const buildNewNames = newNames => {
+  const buildNewNames = (newNames) => {
     setOriginalNames(newNames);
     newNames = newNames
       .replace(/(.+)\n/g, "$1,")
       .split(",")
-      .filter(item => !!item);
+      .filter((item) => !!item);
 
     setNames(newNames);
   };
 
+  const brandColor = "#0644A0";
+
   return (
-    <div
-      className={`text-center d-flex flex-column align-items-center justify-content-center ${isFinal && " text-white"}`}
-      style={{ height: "100vh", backgroundColor: `${isFinal ? "#0644A0" : "white"}` }}
+    <main
+      className={classNames(
+        "text-center flex flex-col items-center justify-center h-[100vh]",
+        {
+          "text-white": isFinal,
+          "bg-white": !isFinal,
+          [`bg-[${brandColor}]`]: isFinal,
+        }
+      )}
     >
-      <div>
-        <h1 className={`display-1`}>{name}</h1>
-      </div>
-      <div className="container-fluid">
+      <h1 className="text-[15rem] ">{name}</h1>
+      <div className="w-full">
         {showEditor && (
-          <div className="row mt-2">
-            <div className="col-6 col-lg-4 m-auto">
+          <div className="mt-2">
+            <div className="flex flex-col items-center w-6/12 mx-auto">
               <label htmlFor="names">Nomes para sorteio</label>
               <textarea
-                placeholder="Adicionar os nomes aqui..."
+                placeholder="Adicione os nomes aqui..."
                 id="names"
                 value={originalNames}
-                style={{ minHeight: "20vh", resize: "x" }}
-                className="form-control"
-                onChange={e => buildNewNames(e.target.value)}
-              ></textarea>
+                className="text-slate-800 border-2 rounded-sm p-2 resize-x min-h-[20vh] min-w-[400px] mt-2"
+                onChange={(e) => buildNewNames(e.target.value)}
+              />
+              <small className="text-slate-400">
+                Os nomes podem ser separados por Enter ou por vírgula
+              </small>
             </div>
           </div>
         )}
 
         <div className="text-center mt-2">
-          <button className="btn btn-secondary" onClick={startRandomize}>
-            Sortear
+          <button
+            className="bg-blue-600 text-white py-2 px-4 uppercase rounded-md hover:bg-blue-700 "
+            onClick={startRandomize}
+          >
+            Sortear {isFinal && "Novamente"}
           </button>
 
           {!showEditor && (
-            <button className="ml-2 btn btn-outline-secondary" onClick={() => setShowEditor(true)}>
+            <button
+              className="ml-2 py-2 px-4 uppercase rounded-md text-white hover:bg-white hover:text-blue-600"
+              onClick={() => setShowEditor(true)}
+            >
               Editar nomes
             </button>
           )}
         </div>
       </div>
-    </div>
+    </main>
   );
 }

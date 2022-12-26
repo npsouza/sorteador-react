@@ -6,17 +6,17 @@
 
 ## Instalação do projeto
 
-- clone o projeto
-- dentro da pasta do projeto rode `npm install`
+- Clone o projeto
+- Rode `npm install`
 
 ## Rodando o projeto
 
-- rode `npm start`
-- acesse [http://localhost:3000](http://localhost:3000)
+- Rode `npm run dev`
+- Acesse [http://localhost:3000](http://localhost:3000)
 
 ## Exemplo
 
-- copie os nomes abaixo:
+- Copie os nomes abaixo:
 
   _Abigail  
    Alexandra  
@@ -35,9 +35,9 @@
    Carol  
    Caroline_
 
-- cole no campo **Nomes para sorteio**
-- clique em **Sortear**
+- Cole no campo **Nomes para sorteio**
+- Clique em **Sortear**
 
 ## Exemplo
 
-- acesse [sorteadordenomes.netlify.com](https://sorteadordenomes.netlify.com)
+- Acesse [sorteadordenomes.netlify.com](https://sorteadordenomes.netlify.com)

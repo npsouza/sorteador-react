@@ -1,17 +1,18 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import classNames from "classnames";
+import Head from "next/head";
 
 export default function App() {
   const initialDelay = 50;
   const limit = 30;
 
-  const [name, setName] = React.useState(null);
-  const [count, setCount] = React.useState(limit);
-  const [names, setNames] = React.useState([]);
-  const [delay, setDelay] = React.useState(initialDelay);
-  const [showEditor, setShowEditor] = React.useState(true);
-  const [isFinal, setIsFinal] = React.useState(false);
-  const [originalNames, setOriginalNames] = React.useState("");
+  const [name, setName] = useState(null);
+  const [count, setCount] = useState(limit);
+  const [names, setNames] = useState([]);
+  const [delay, setDelay] = useState(initialDelay);
+  const [showEditor, setShowEditor] = useState(true);
+  const [isFinal, setIsFinal] = useState(false);
+  const [originalNames, setOriginalNames] = useState("");
 
   const randomizeName = () => {
     let index = Math.floor(Math.random() * names.length);
@@ -41,17 +42,19 @@ export default function App() {
     }
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     setTimeout(() => {
       shouldRandomizeName();
     }, delay);
   }, [count, delay, shouldRandomizeName]);
 
   const startRandomize = () => {
-    setDelay(initialDelay);
-    setShowEditor(false);
-    setIsFinal(false);
-    setCount(0);
+    if (names.length > 1) {
+      setDelay(initialDelay);
+      setShowEditor(false);
+      setIsFinal(false);
+      setCount(0);
+    }
   };
 
   const buildNewNames = (newNames) => {
@@ -59,24 +62,25 @@ export default function App() {
     newNames = newNames
       .replace(/(.+)\n/g, "$1,")
       .split(",")
-      .filter((item) => !!item);
+      .filter((item) => Boolean(item));
 
     setNames(newNames);
   };
 
-  const brandColor = "#0644A0";
+  const brandColor = "#6b0bf1";
 
   return (
     <main
       className={classNames(
         "text-center flex flex-col items-center justify-center h-[100vh]",
-        {
-          "text-white": isFinal,
-          "bg-white": !isFinal,
-          [`bg-[${brandColor}]`]: isFinal,
-        }
+        { "text-white": isFinal, "bg-white": !isFinal }
       )}
+      style={{ background: isFinal && brandColor }}
     >
+      <Head>
+        <meta name="robots" content="noindex, nofollow" />
+        <title>Sorteador de Nomes</title>
+      </Head>
       <h1 className="text-[15rem] ">{name}</h1>
       <div className="w-full">
         {showEditor && (
@@ -97,23 +101,30 @@ export default function App() {
           </div>
         )}
 
-        <div className="text-center mt-2">
-          <button
-            className="bg-blue-600 text-white py-2 px-4 uppercase rounded-md hover:bg-blue-700 "
-            onClick={startRandomize}
-          >
-            Sortear {isFinal && "Novamente"}
-          </button>
-
-          {!showEditor && (
+        {(isFinal || showEditor) && (
+          <div className="text-center flex flex-col w-2/12 mx-auto mt-2 gap-2">
             <button
-              className="ml-2 py-2 px-4 uppercase rounded-md text-white hover:bg-white hover:text-blue-600"
-              onClick={() => setShowEditor(true)}
+              className={classNames("py-2 px-4 uppercase rounded-md", {
+                "text-white": !isFinal,
+                "bg-black bg-opacity-20 hover:bg-opacity-30": isFinal,
+              })}
+              style={{ background: !isFinal && brandColor }}
+              onClick={startRandomize}
             >
-              Editar nomes
+              Sortear {isFinal && !showEditor && "Novamente"}{" "}
+              {names.length > 0 && `(${names.length})`}
             </button>
-          )}
-        </div>
+
+            {!showEditor && (
+              <button
+                className="hover:bg-black hover:bg-opacity-10 py-2 px-4 uppercase rounded-md text-white underline underline-offset-2 decoration-dotted "
+                onClick={() => setShowEditor(true)}
+              >
+                Editar nomes
+              </button>
+            )}
+          </div>
+        )}
       </div>
     </main>
   );

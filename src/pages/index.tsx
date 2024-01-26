@@ -71,11 +71,11 @@ export default function App() {
 
   return (
     <main
-      className={classNames(
-        "text-center flex flex-col items-center justify-center h-[100vh]",
-        { "text-white": isFinal, "bg-white": !isFinal }
-      )}
-      style={{ background: isFinal && brandColor }}
+      className={classNames("text-center flex flex-col items-center justify-center h-[100vh]", {
+        "text-white": isFinal,
+        "bg-white": !isFinal,
+      })}
+      style={{ ...(isFinal && { background: brandColor }) }}
     >
       <Head>
         <meta name="robots" content="noindex, nofollow" />

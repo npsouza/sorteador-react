@@ -71,15 +71,16 @@ export default function App() {
 
   return (
     <main
-      className={classNames(
-        "text-center flex flex-col items-center justify-center h-[100vh]",
-        { "text-white": isFinal, "bg-white": !isFinal }
-      )}
-      style={{ background: isFinal && brandColor }}
+      className={classNames("text-center flex flex-col items-center justify-center h-[100vh]", {
+        "text-white": isFinal,
+        "bg-white": !isFinal,
+      })}
+      style={{ ...(isFinal && { background: brandColor }) }}
     >
       <Head>
         <meta name="robots" content="noindex, nofollow" />
         <title>Sorteador de Nomes</title>
+        <link rel="shortcut icon" type="image/jpg" href="/favicon.png" />
       </Head>
       <h1 className="text-[15rem] ">{name}</h1>
       <div className="w-full">

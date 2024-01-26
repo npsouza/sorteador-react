@@ -80,6 +80,7 @@ export default function App() {
       <Head>
         <meta name="robots" content="noindex, nofollow" />
         <title>Sorteador de Nomes</title>
+        <link rel="shortcut icon" type="image/jpg" href="/favicon.png" />
       </Head>
       <h1 className="text-[15rem] ">{name}</h1>
       <div className="w-full">

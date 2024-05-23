@@ -40,4 +40,4 @@
 
 ## Exemplo
 
-- Acesse [sorteadordenomes.netlify.com](https://sorteadordenomes.netlify.com)
+- Acesse [sorteadordenomes.netlify.app](https://sorteadordenomes.netlify.app)
